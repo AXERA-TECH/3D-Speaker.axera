@@ -40,30 +40,40 @@ cd python
 python3 run_onnx.py
 ```
 输出结果
-![output](asserts/res_onnx.jpg)
+
+[INFO]: Computing the similarity score...
+
+[INFO]: The similarity score between two input wavs is 0.7295
 
 ##### 基于AXEngine运行  
 在开发板上运行命令
 
+输入相同人音频数据
 ```
 cd python  
-python3 run_axmodel.py
+python3 run_axmodel.py --wav ./wav/speaker1_a_cn_16k.wav ./wav/speaker1_b_cn_16k.wav
 ```  
-输出结果
-![output](asserts/res_ax.jpg)
+输出结果：
+![image](https://github.com/user-attachments/assets/b2c47af5-e5a4-461a-b69a-262a01f298e5)
+
+
+
+输入不同人音频数据
+```
+python3 run_axmodel.py --wav ./wav/speaker1_a_cn_16k.wav ./wav/speaker2_a_cn_16k.wav
+```
+输出结果： 
+![image](https://github.com/user-attachments/assets/4128ec72-5db9-4098-9f29-0d9268e6c1ba)
+
 
 
 运行参数说明:  
 | 参数名称 | 说明  |
 | --- | --- | 
-| --img_path | 输入图片路径 | 
-| --det_model_dir | 检测模型路径 | 
-| --rec_model_dir | 识别模型路径 | 
-| --cls_model_dir | 分类模型路径 | 
-| --character_dict_path | 识别字典路径 | 
-| --det_limit_side_len | 检测模型尺寸 | 
-| --rec_image_shape | 识别模型尺寸 | 
-| --cls_image_shape | 分类模型尺寸 | 
+| --model | 检测模型路径 | 
+| --wavs | 输入.wav格式音频数据 | 
+| --samplerate | 音频采样率 | 
+| --max_frames | 音频最大帧数 | 
 
 ### Latency
 
@@ -71,9 +81,7 @@ python3 run_axmodel.py
 
 | model | latency(ms) |
 |---|---|
-|PP-OCRv5_mobile_det|28.6|
-|PP-OCRv5_mobile_rec|3.6|
-|PP-LCNet_x0_25_textline_ori|0.3|
+|ERes2NetV2|5.09|
 
 
 
