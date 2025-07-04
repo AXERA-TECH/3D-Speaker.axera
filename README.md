@@ -40,10 +40,10 @@ cd python
 python3 run_onnx.py
 ```
 输出结果
-
+```
 [INFO]: Computing the similarity score...
-
 [INFO]: The similarity score between two input wavs is 0.7295
+```
 
 ##### 基于AXEngine运行  
 在开发板上运行命令
@@ -54,18 +54,47 @@ cd python
 python3 run_axmodel.py --wav ./wav/speaker1_a_cn_16k.wav ./wav/speaker1_b_cn_16k.wav
 ```  
 输出结果：
-![image](https://github.com/user-attachments/assets/b2c47af5-e5a4-461a-b69a-262a01f298e5)
-
-
+```  
+[INFO] Available providers:  ['AxEngineExecutionProvider']
+[INFO] Using provider: AxEngineExecutionProvider
+[INFO] Chip type: ChipType.MC50
+[INFO] VNPU type: VNPUType.DISABLED
+[INFO] Engine version: 2.12.0s
+[INFO] Model type: 2 (triple core)
+[INFO] Compiler version: 4.0 3352e83b
+call __del__
+call _unload
+[INFO] Using provider: AxEngineExecutionProvider
+[INFO] Model type: 2 (triple core)
+[INFO] Compiler version: 4.0 3352e83b
+call __del__
+call _unload
+[INFO]: Computing the similarity score...
+[INFO]: The similarity score between two input wavs is 0.7136
+```  
 
 输入不同人音频数据
 ```
 python3 run_axmodel.py --wav ./wav/speaker1_a_cn_16k.wav ./wav/speaker2_a_cn_16k.wav
 ```
 输出结果： 
-![image](https://github.com/user-attachments/assets/4128ec72-5db9-4098-9f29-0d9268e6c1ba)
-
-
+```
+[INFO] Using provider: AxEngineExecutionProvider
+[INFO] Chip type: ChipType.MC50
+[INFO] VNPU type: VNPUType.DISABLED
+[INFO] Engine version: 2.12.0s
+[INFO] Model type: 2 (triple core)
+[INFO] Compiler version: 4.0 3352e83b
+call __del__
+call _unload
+[INFO] Using provider: AxEngineExecutionProvider
+[INFO] Model type: 2 (triple core)
+[INFO] Compiler version: 4.0 3352e83b
+call __del__
+call _unload
+[INFO]: Computing the similarity score...
+[INFO]: The similarity score between two input wavs is 0.0788
+```
 
 运行参数说明:  
 | 参数名称 | 说明  |
