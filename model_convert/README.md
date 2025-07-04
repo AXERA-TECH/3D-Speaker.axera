@@ -23,7 +23,9 @@ python speakerlab/bin/export_speaker_embedding_onnx.py \
     --target_onnx_file path/to/save/onnx_model
 ```
 但直接导出的onnx在使用AX工具生成.axmodel存在一些问题，为了适配AX平台，导出onnx模型需要做的修改
+
 如下：
+
 1、增加输入层ch维度
 修改文件：
 ```
