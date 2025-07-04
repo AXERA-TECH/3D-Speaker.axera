@@ -10,7 +10,10 @@ pip install -r requirements.txt
 ```
 
 ## 导出模型（ONNX）
-导出onnx可以参考：https://github.com/modelscope/3D-Speaker/blob/main/runtime/onnxruntime/README.md
+导出onnx可以参考：
+```
+https://github.com/modelscope/3D-Speaker/blob/main/runtime/onnxruntime/README.md
+```
 
 一般情况下，用以下命令即可将ERes2NetV2模型导出为onnx模型：
 ```
@@ -19,23 +22,33 @@ python speakerlab/bin/export_speaker_embedding_onnx.py \
     --model_id iic/speech_eres2netv2_sv_zh-cn_16k-common \ # you can use other model_id
     --target_onnx_file path/to/save/onnx_model
 ```
-但直接导出的onnx在使用AX工具生成.axmodel存在一些问题，需要做一些修改
-
-为了适配AX平台，导出onnx模型需要做的修改如下：
+但直接导出的onnx在使用AX工具生成.axmodel存在一些问题，为了适配AX平台，导出onnx模型需要做的修改
+如下：
 1、增加输入层ch维度
-修改文件：https://github.com/modelscope/3D-Speaker/blob/main/speakerlab/models/eres2net/ERes2NetV2.py
+修改文件：
+```
+https://github.com/modelscope/3D-Speaker/blob/main/speakerlab/models/eres2net/ERes2NetV2.py
+```
 修改如下：
+```
 class ERes2NetV2(nn.Module):
     def forward(self, x):
         #x = x.permute(0, 2, 1)  # (B,T,F) => (B,F,T)
         #x = x.unsqueeze_(1)
         x = x.permute(0, 1, 3, 2)  # (B,T,F) => (B,F,T)
+```
 
 2、固定输入层shape大小
+```
 -The model input shape is (batch_size, frame_num, feature_dim).
+```
 -输入层为fbank特征：feature_dim:80，frame_num则与输入音频长度相关，本例中设为固定值:360，对应音频时长（16K）约为3s左右
-修改文件：https://github.com/modelscope/3D-Speaker/blob/main/speakerlab/bin/export_speaker_embedding_onnx.py
+修改文件：
+```
+https://github.com/modelscope/3D-Speaker/blob/main/speakerlab/bin/export_speaker_embedding_onnx.py
+```
 修改export_onnx_file接口如下：
+```
 def export_onnx_file(model, target_onnx_file):
     dummy_input = torch.randn(1, 1, 360, 80)
     torch.onnx.export(model,
@@ -48,6 +61,7 @@ def export_onnx_file(model, target_onnx_file):
                         output_names=['embedding'],
                         dynamic_axes={})
     logger.info(f"Export model onnx to {target_onnx_file} finished")
+```
 
 导出成功后会生成'res2netv2.onnx'模型.
 
