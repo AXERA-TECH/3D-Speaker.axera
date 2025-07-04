@@ -1,0 +1,46 @@
+{
+  "input": "./res2netv2.onnx",
+  "output_dir": "./output",
+  "output_name": "res2netv2.axmodel",
+  "work_dir": "",
+  "model_type": "ONNX",
+  "target_hardware": "AX650",
+  "npu_mode": "NPU1",
+  "quant": {
+    "input_configs": [
+      {
+        "tensor_name": "DEFAULT",
+        "calibration_dataset": "./npy.zip",
+        "calibration_format": "Numpy",
+        "calibration_size": 10,
+        "calibration_mean": [0],
+        "calibration_std": [1]
+      }
+    ],
+    "calibration_method": "MinMax",
+    "precision_analysis": true,
+    "precision_analysis_method": "EndToEnd",
+    "precision_analysis_mode": "Reference"
+  },
+  "input_processors": [
+    {
+      "tensor_name": "DEFAULT",
+      "tensor_format": "AutoColorSpace",
+      "tensor_layout": "NCHW",
+      "src_format": "AutoColorSpace",
+      "src_layout": "NHWC",
+      "src_dtype": "FP32",
+      "csc_mode": "FullRange",
+      "csc_mat": [1.164, 0, 1.596, -222.912, 1.164, -0.392, -0.813, 135.616, 1.164, 2.017, 0, -276.8]
+    }
+  ],
+  "output_processors": [
+    {
+      "tensor_name": "DEFAULT"
+    }
+  ],
+  "compiler": {
+    "check": 0
+  }
+}
+
