@@ -1,1 +1,1 @@
-wget https://github.com/wzf19947/PPOCR_v5/releases/download/v1.0.0/npy.zip
+wget https://github.com/AXERA-TECH/3D-Speaker.axera/releases/tag/v1.0.0/data.tar.gz
