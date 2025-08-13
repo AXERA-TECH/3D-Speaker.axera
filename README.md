@@ -111,6 +111,7 @@ call _unload
 | model | latency(ms) |
 |---|---|
 |ERes2NetV2|5.09|
+|Ecapa-tdnn|7.37|
 
 
 
